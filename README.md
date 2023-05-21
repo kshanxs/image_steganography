@@ -1,5 +1,9 @@
 # Image Steganography with LSB Technique 📷🔒
 
+> 🎓 **Final Year Project**  
+> This repository branch contains the codebase and official documentation for the final year project on **Secure Image Steganography**. 
+> - **Project Report / Dissertation**: See [project_report.md](project_report.md)
+
 Welcome to the Image Steganography project! The program uses the Least Significant Bit (LSB) method to hide information within images. This technique ensures that the hidden data is imperceptible to the human eye, making it an effective method for securely embedding secret messages. Whether you are looking to protect sensitive information or simply explore the fascinating world of steganography.
 
 ## What is Steganography? 🤔
@@ -29,7 +33,7 @@ Inspired by the work of  [RobinDavid/LSB-Steganography](https://github.com/Robin
 Clone the repository and install the required dependencies:s
 
 ```bash
-git clone https://github.com/yourusername/image_steganography.git
+git clone https://github.com/kshanxs/image_steganography.git
 ```
 
 ```bash
