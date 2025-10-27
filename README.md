@@ -29,7 +29,7 @@ Inspired by the work of  [RobinDavid/LSB-Steganography](https://github.com/Robin
 Clone the repository and install the required dependencies:s
 
 ```bash
-git clone https://github.com/yourusername/image_steganography.git
+git clone https://github.com/kshanxs/image_steganography.git
 ```
 
 ```bash
