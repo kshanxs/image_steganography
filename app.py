@@ -155,31 +155,48 @@ def decode_text_image(encoded_image, password):
     except InvalidToken:
         return gr.update(value="Wrong password. Please try again.", visible=True)
 
-# Gradio interface for encoding text into an image
-encode_interface = gr.Interface(
-    fn=encode_text_image,
-    inputs=[
-        gr.Image(type="filepath", label="Carrier Image"),
-        gr.Textbox(label="Secret Text"),
-        gr.Textbox(label="Password", type="password")
-    ],
-    outputs=gr.File(label="Download Encoded Image", visible=False),
-    title="<div style='text-align: center;'><h2>Encode Text into Image 🔐</h2></div>",
-    description="<div style='text-align: center;'>Upload an image to serve as the carrier, input the secret message you wish to conceal,<br> and set a secure password. This process will encode your message into the image,<br> ensuring that only those with the correct password can decode and access the hidden text.</div>"
-)
+# Custom CSS to limit height and center layout to prevent any scrolling
+css = """
+.container { max-width: 950px; margin: auto; }
+.gradio-container { min-height: 0px !important; }
+div.compact-header { text-align: center; margin-top: 10px; margin-bottom: 5px; }
+"""
 
-# Gradio interface for decoding text from an image
-decode_interface = gr.Interface(
-    fn=decode_text_image,
-    inputs=[
-        gr.Image(type="filepath", label="Encoded Image"),
-        gr.Textbox(label="Password", type="password")
-    ],
-    outputs=gr.Textbox(label="Decoded Text", visible=False),
-    title="<div style='text-align: center;'><h2>Decode Text from Image 🔑</h2></div>",
-    description="<div style='text-align: center;'>Upload an image that contains encoded text and enter the correct password to extract and reveal the hidden message.<br> This ensures that only authorized users with the correct password can access the concealed information.</div>"
-)
+with gr.Blocks(title="Image Steganography", css=css) as app:
+    gr.HTML("<div class='compact-header'><h2>Image Steganography</h2></div>")
+    
+    with gr.Tab("Encode"):
+        gr.HTML("<div style='text-align: center; margin-bottom: 10px;'><h3>Encode Text into Image</h3></div>")
+        with gr.Row():
+            with gr.Column(scale=1):
+                carrier_img = gr.Image(type="filepath", label="Carrier Image")
+            with gr.Column(scale=1):
+                secret_text = gr.Textbox(label="Secret Text", placeholder="Enter secret message to hide...", lines=3)
+                password_enc = gr.Textbox(label="Password", type="password", placeholder="Set decryption password...")
+                encode_btn = gr.Button("Encode Message", variant="primary")
+                encoded_file = gr.File(label="Download Encoded Image", visible=False)
+                
+        encode_btn.click(
+            fn=encode_text_image,
+            inputs=[carrier_img, secret_text, password_enc],
+            outputs=encoded_file
+        )
+        
+    with gr.Tab("Decode"):
+        gr.HTML("<div style='text-align: center; margin-bottom: 10px;'><h3>Decode Text from Image</h3></div>")
+        with gr.Row():
+            with gr.Column(scale=1):
+                stego_img = gr.Image(type="filepath", label="Encoded Image")
+            with gr.Column(scale=1):
+                password_dec = gr.Textbox(label="Password", type="password", placeholder="Enter decryption password...")
+                decode_btn = gr.Button("Decode Message", variant="primary")
+                decoded_text = gr.Textbox(label="Decoded Text", visible=False, lines=4)
+                
+        decode_btn.click(
+            fn=decode_text_image,
+            inputs=[stego_img, password_dec],
+            outputs=decoded_text
+        )
 
-# Launch the Gradio app with tabbed interfaces for encoding and decoding
-app = gr.TabbedInterface([encode_interface, decode_interface], ["Encode", "Decode"], title="Image Steganography")
+# Launch the Gradio app
 app.launch()
