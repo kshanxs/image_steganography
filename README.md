@@ -1,15 +1,3 @@
----
-title: Image Steganography
-emoji: 🖼️
-colorFrom: blue
-colorTo: yellow
-sdk: gradio
-app_file: app.py
-pinned: false
-license: mit
-short_description: Hide and extract secret messages in images via LSB
----
-
 # Image Steganography with LSB Technique 📷🔒
 
 Welcome to the Image Steganography project! The program uses the Least Significant Bit (LSB) method to hide information within images. This technique ensures that the hidden data is imperceptible to the human eye, making it an effective method for securely embedding secret messages. Whether you are looking to protect sensitive information or simply explore the fascinating world of steganography.
