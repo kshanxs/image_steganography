@@ -1,4 +1,4 @@
-opencv-python==4.7.0.72
-cryptography==40.0.2
-numpy==1.24.3
-gradio==3.31.0
+opencv-python
+cryptography
+numpy
+gradio
